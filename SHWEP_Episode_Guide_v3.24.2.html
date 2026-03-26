@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHWEP — Complete Episode Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cinzel+Decorative:wght@400;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1208;
+    --parchment: #f5eed8;
+    --parchment-dark: #ede3c4;
+    --parchment-mid: #f0e8ce;
+    --gold: #8b6914;
+    --gold-light: #c49a27;
+    --gold-pale: #e8d48a;
+    --red: #7a1c1c;
+    --red-light: #b04040;
+    --muted: #6b5a3a;
+    --rule: #c8b478;
+    --members-bg: #f0e8d4;
+    --members-border: #b09050;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background-color: var(--parchment);
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    font-family: 'Crimson Pro', Georgia, serif;
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  .outer {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  /* ── HEADER ── */
+  header {
+    text-align: center;
+    padding: 52px 0 32px;
+    border-bottom: 3px double var(--rule);
+    margin-bottom: 40px;
+    position: relative;
+  }
+  header::before, header::after {
+    content: "✦";
+    color: var(--gold);
+    font-size: 1.1rem;
+    position: absolute;
+    bottom: -0.9rem;
+    background: var(--parchment);
+    padding: 0 10px;
+  }
+  header::before { left: 50%; transform: translateX(-50%); }
+  header::after { display: none; }
+
+  .site-kicker {
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.85rem;
+    font-style: italic;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.4rem, 4vw, 2.2rem);
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+    margin-bottom: 14px;
+  }
+
+  .subtitle {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--muted);
+    margin-bottom: 18px;
+  }
+
+  .meta-line {
+    font-size: 0.82rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ── LEGEND / FILTER ── */
+  .legend {
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 36px;
+    padding: 14px 20px;
+    border: 1px solid var(--rule);
+    background: var(--parchment-dark);
+    font-size: 0.88rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+  .legend label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .legend label:hover { color: var(--ink); }
+  .swatch {
+    display: inline-block;
+    width: 14px; height: 14px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .swatch-ep   { background: var(--parchment); border: 2px solid var(--gold); }
+  .swatch-mem  { background: var(--members-bg); border: 2px solid var(--members-border); }
+
+  /* hide rows when toggled off */
+  body.hide-free  tr.ep-row  { display: none; }
+  body.hide-mem   tr.mem-row { display: none; }
+
+  /* ── SECTION HEADERS ── */
+  .section-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-align: center;
+    margin: 44px 0 18px;
+    position: relative;
+  }
+  .section-title::before, .section-title::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 28%;
+    height: 1px;
+    background: var(--rule);
+  }
+  .section-title::before { left: 0; }
+  .section-title::after  { right: 0; }
+
+  /* ── TABLE ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+
+  thead th {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    padding: 8px 12px;
+    border-bottom: 2px solid var(--rule);
+    text-align: left;
+    background: var(--parchment-dark);
+  }
+  thead th:first-child { text-align: center; width: 72px; }
+
+  tr.ep-row {
+    background: var(--parchment);
+    border-bottom: 1px solid #ddd3b0;
+    transition: background 0.15s;
+  }
+  tr.ep-row:hover { background: #ede3bf; }
+
+  tr.mem-row {
+    background: var(--members-bg);
+    border-bottom: 1px solid #cec090;
+    transition: background 0.15s;
+  }
+  tr.mem-row:hover { background: #e8dcc4; }
+
+  td {
+    padding: 9px 12px;
+    vertical-align: top;
+    line-height: 1.45;
+  }
+
+  td.ep-num {
+    text-align: center;
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 0.75rem;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    padding-top: 11px;
+  }
+  td.ep-num.mem {
+    color: var(--members-border);
+    font-style: italic;
+    font-family: 'IM Fell English', serif;
+    font-size: 0.78rem;
+  }
+
+  td.ep-title a {
+    font-family: 'IM Fell English', serif;
+    font-size: 1.02rem;
+    color: var(--red);
+    text-decoration: none;
+    line-height: 1.4;
+  }
+  td.ep-title a:hover {
+    color: var(--gold);
+    text-decoration: underline;
+    text-decoration-color: var(--gold-pale);
+  }
+  td.ep-title .mem-tag {
+    display: inline-block;
+    margin-left: 6px;
+    font-family: 'Crimson Pro', serif;
+    font-style: italic;
+    font-size: 0.74rem;
+    color: var(--members-border);
+    letter-spacing: 0.04em;
+    vertical-align: middle;
+  }
+
+  td.ep-desc {
+    font-size: 0.84rem;
+    color: var(--muted);
+    font-style: italic;
+    max-width: 420px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 3px double var(--rule);
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--muted);
+    font-style: italic;
+    line-height: 1.7;
+  }
+  footer a { color: var(--gold); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  @media (max-width: 640px) {
+    td.ep-desc { display: none; }
+    h1 { font-size: 1.2rem; }
+    .section-title::before, .section-title::after { width: 15%; }
+  }
+</style>
+</head>
+<body>
+<div class="outer">
+
+<header>
+  <p class="site-kicker">shwep.net</p>
+  <h1>The Secret History of<br>Western Esotericism Podcast</h1>
+  <p class="subtitle">Complete Episode Guide — Chronological Order</p>
+  <p class="meta-line">Episodes 0 – 214 &nbsp;·&nbsp; Compiled March 2026</p>
+</header>
+
+<div class="legend">
+  <label><input type="checkbox" id="tog-free" checked onchange="document.body.classList.toggle('hide-free', !this.checked)"><span class="swatch swatch-ep"></span> Numbered episodes (free &amp; members)</label>
+  <label><input type="checkbox" id="tog-mem" checked onchange="document.body.classList.toggle('hide-mem', !this.checked)"><span class="swatch swatch-mem"></span> Members-only / Supplements</label>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     INTRODUCTORY EPISODES (0–3)
+═════════════════════════════════════════════════════ -->
+<div class="section-title">Introductory Episodes</div>
+<table>
+<thead><tr>
+  <th>#</th><th>Title</th><th>Description</th>
+</tr></thead>
+<tbody>
+
+<tr class="ep-row"><td class="ep-num">Ep 0</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/so-what-is-western-esotericism-anyway/">So What is Western Esotericism, Anyway?</a></td>
+<td class="ep-desc">Introduction to the podcast and a short quiz on western esoteric history.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 1</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/a-secret-history-of-secret-history-part-i/">A Secret History of Secret History, Part I</a></td>
+<td class="ep-desc">Lightning survey of key elements of western esotericism from late antiquity to the middle ages.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 2</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/a-secret-history-of-secret-history-part-ii/">A Secret History of Secret History, Part II</a></td>
+<td class="ep-desc">Continues the survey from the medieval era to modern times.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 3</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/wouter-hanegraaff-on-western-esotericism-interview/">Wouter Hanegraaff on Western Esotericism</a></td>
+<td class="ep-desc">Prof. Hanegraaff on researching western esotericism and "rejecting the rejection of rejected knowledge."</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/special-episode-wouter-hanegraaff-on-western-esotericism/">Wouter Hanegraaff on Western Esotericism</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Expanded discussion of Renaissance Hermetism and the academic study of western esotericism.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/kocku-von-stuckrad-on-western-esotericism/">Kocku von Stuckrad on Western Esotericism</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Prof. von Stuckrad on methodological issues in the study of western esotericism.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/matthew-melvin-koushki-on-the-west/">Matthew Melvin-Koushki on 'The West'</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">What do we mean by "the west" in western esotericism? A radical reorientation.</td></tr>
+
+</tbody>
+</table>
+
+<!-- ════════════════════════════════════════════════════
+     PART I: ANCIENT FOUNDATIONS (Eps 4–18)
+═════════════════════════════════════════════════════ -->
+<div class="section-title">Part I — Ancient Foundations</div>
+<table>
+<thead><tr><th>#</th><th>Title</th><th>Description</th></tr></thead>
+<tbody>
+
+<tr class="ep-row"><td class="ep-num">Ep 4</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/richard-seaford-on-origins-soul-interview/">Richard Seaford on the Origins of the Soul</a></td>
+<td class="ep-desc">The idea of the soul arises simultaneously in Greece and India in the 6th century BCE.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/seaford-on-soul-ritual-and-money/">Seaford on Soul, Ritual, and Money</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Professor Seaford gets serious.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/robert-bolton-on-the-immaterial-immortal-soul/">Robert Bolton on the (Immaterial, Immortal) Soul</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Dr Bolton on a priori reasons for belief in the soul's reality.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 5</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/methodologies-for-the-study-of-magic/">Methodologies for the Study of Magic</a></td>
+<td class="ep-desc">What is magic, anyway? Methodological problems with the term.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 6</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/magicians-ghosts-amulets-and-spells-daniel-ogden-on-graeco-roman-magic/">Magicians, Ghosts, Amulets, and Spells: Daniel Ogden on Græco-Roman Magic</a></td>
+<td class="ep-desc">Daniel Ogden leads us through magical practice in the Græco-Roman world.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/daniel-ogden-on-three-ancient-mages/">Daniel Ogden on Three Ancient Mages</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Apollonius of Tyana, Jesus of Nazareth, and Alexander of Abonuteichos.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 7</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/were-together-in-dreams-dreaming-and-western-esotericism/">We're Together In Dreams: Dreaming and Western Esotericism</a></td>
+<td class="ep-desc">Dreams, their relation to myths, and ancient theories about dreaming.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 8</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/esoteric-orientalism-part-i-ancient-barbarian-sages/">Esoteric Orientalism Part I: Ancient Barbarian Sages</a></td>
+<td class="ep-desc">Orientalism and barbarian sages: Zoroaster, Hermes Trismegistus, Moses.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 9</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/esoteric-orientalism-part-ii-the-greeks-are-always-children/">Esoteric Orientalism Part II: The Greeks are Always Children?</a></td>
+<td class="ep-desc">Did the ancient Greeks acquire their knowledge from near-eastern neighbours?</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 10</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/prayer-to-the-gods-of-night-the-near-eastern-roots-of-astrology/">Prayer to the Gods of Night: The Near-Eastern Roots of Astrology</a></td>
+<td class="ep-desc">The earliest science of astrology developed in Mesopotamia.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 11</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-long-secret-history-of-judaism-part-i/">The Long Secret History of Judaism, Part I</a></td>
+<td class="ep-desc">Early Jewish peoples, biblical criticism, and key contributions of Judaism to western esotericism.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 12</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/richard-seaford-on-the-mysteries/">Richard Seaford on the Mysteries</a></td>
+<td class="ep-desc">The world of ancient Greek mystery-cults: secrecy, silence, initiation.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 13</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/from-mystery-to-mysticism/">From Mystery to 'Mysticism'</a></td>
+<td class="ep-desc">The strange conceptual development of "mystic," "mystical," and "mystery" through the ages.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 14</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/methodologies-for-the-study-of-mysticism/">Methodologies for the Study of Mysticism</a></td>
+<td class="ep-desc">How can we talk about mysticism if mysticism involves ineffable experiences?</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 15</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/for-the-love-of-wisdom-the-birth-of-philosophy/">For the Love of Wisdom: The Birth of Philosophy</a></td>
+<td class="ep-desc">Western philosophy begins with revelation, myth, and poetry.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 16</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-enigma-of-pythagoras/">The Enigma of Pythagoras</a></td>
+<td class="ep-desc">The ancient mystagogue and psychagogue who may have founded philosophy.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 17</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-enigma-of-pythagoreanism/">The Enigma of Pythagoreanism</a></td>
+<td class="ep-desc">From holy man to fertile philosophic movement in mathematics and harmonics.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 18</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/dont-spill-the-beans-pythagorean-silence/">Don't Spill the Beans: Pythagorean Silence</a></td>
+<td class="ep-desc">The mystique of esoteric silence and the late-antique "Pythagorean" philosopher.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 19</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/riddle-me-this-heraclitus-of-ephesus/">Riddle Me This: Heraclitus of Ephesus</a></td>
+<td class="ep-desc">Heraclitus: pioneer of esoteric discourse, earliest philosopher to write in "riddles."</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 20</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/all-for-one-and-one-for-all-parmenides-of-elea/">All for One, and One for All: Parmenides of Elea</a></td>
+<td class="ep-desc">The original philosopher of pure Being, who learned from a goddess in the underworld.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 21</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/elementary-empedocles-and-the-secret-history-of-the-elements/">Elementary: Empedocles and the Secret History of the Elements</a></td>
+<td class="ep-desc">The four elements, magic, reincarnation, exiled gods, and cosmic catastrophe.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 22</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/severed-heads-and-cosmic-eggs-orpheus-and-esotericism/">Severed Heads and Cosmic Eggs: Orpheus and Esotericism</a></td>
+<td class="ep-desc">The myth of Orpheus and the Orphic myths.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 23</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/miguel-herrero-de-jauregui-on-ancient-orphism/">Miguel Herrero de Jauregui on Ancient 'Orphism'</a></td>
+<td class="ep-desc">Navigating the fascinating question of ancient "Orphism."</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-greek-iatromanteis-katabasis-metempsychosis-soul-flight-and-the-question-of-shamanism/">The Greek Iatromanteis: Katabasis, Metempsychosis, Soul-Flight, and the Question of 'Shamanism'</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Orpheus, Abaris, Aristeas, Epimenides, Hermotimus, Pythagoras, Empedocles — the soul-manipulating healer-seers.</td></tr>
+
+</tbody>
+</table>
+
+<!-- ════════════════════════════════════════════════════
+     PART II: PLATO AND THE PLATONIST TRADITION (Eps 24–50)
+═════════════════════════════════════════════════════ -->
+<div class="section-title">Part II — Plato &amp; the Platonist Tradition</div>
+<table>
+<thead><tr><th>#</th><th>Title</th><th>Description</th></tr></thead>
+<tbody>
+
+<tr class="ep-row"><td class="ep-num">Ep 24</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/introducing-the-father-of-western-esotericism-plato/">Introducing the Father of Western Esotericism: Plato</a></td>
+<td class="ep-desc">The greatest philosopher of the western world was a trickster.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 25</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-esoteric-plato/">The Esoteric Plato</a></td>
+<td class="ep-desc">Plato as esoteric author who hid his true doctrines within his dialogues.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 26</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-birth-of-the-symbol-peter-struck-on-ancient-greek-esoteric-hermeneutics/">The Birth of the Symbol: Peter Struck on Ancient Greek Esoteric Hermeneutics</a></td>
+<td class="ep-desc">Ancient techniques of esoteric reading with Professor Peter Struck.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 27</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/platos-timaeus/">Plato's Timæus</a></td>
+<td class="ep-desc">The father of western esotericism's single most influential dialogue.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 28</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/christopher-gill-on-platos-atlantis/">Christopher Gill on Plato's Atlantis</a></td>
+<td class="ep-desc">Deep into the territory of Atlantis, one of Plato's most puzzling creations.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/further-travels-in-atlantis-with-christopher-gill/">Further Travels in Atlantis with Christopher Gill</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Possible historical influences and attempts to interpret the Atlantis story.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 29</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/otherworlds-inner-worlds-and-utopias/">Otherworlds, Inner Worlds, and Utopias</a></td>
+<td class="ep-desc">Types of esoteric space: otherworlds, inner worlds, and utopias.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 30</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/introducing-platos-republic/">Introducing Plato's Republic</a></td>
+<td class="ep-desc">Plato's masterwork: complex and sly, with an intricate structure.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 31</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/sun-line-cave-platos-inner-republic/">Sun, Line, Cave: Plato's Inner Republic</a></td>
+<td class="ep-desc">Three beautiful linked passages among the most influential Platonic texts for western esotericism.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 32</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/maya-alapin-on-mathematical-structures-in-platos-republic/">Maya Alapin on Mathematical Structures in Plato's Republic</a></td>
+<td class="ep-desc">How harmonic theory, ratios, and proportions intertwine with textual meaning in the Republic.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/adam-tetlow-on-mathematics-useful-for-reading-plato/">Adam Tetlow on Mathematics Useful for Understanding Plato</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Crucial arithmetical and geometrical concepts from Plato's dialogues.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 33</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/nowhere-to-go-but-up-philosophic-ascent-in-plato/">Nowhere to Go But Up: Philosophic Ascent in Plato</a></td>
+<td class="ep-desc">Plato's accounts of the journey to the world of eternal truths.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 34</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/mystery-and-initiation-in-plato/">Mystery and Initiation in Plato</a></td>
+<td class="ep-desc">How we get from ancient ritual practices to transcendent knowledge — via Plato.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 35</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/mystery-and-immortality-platos-phaedo/">Mystery and Immortality: Plato's Phædo</a></td>
+<td class="ep-desc">Socrates' final hours, arguing for the soul's immortality on mysterious grounds.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 36</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/platos-parmenides-and-metaphysics/">Plato's Parmenides and Metaphysics</a></td>
+<td class="ep-desc">Plato's most baffling work, where logic becomes something that transcends logic.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 37</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/peter-adamson-on-plato/">Peter Adamson on Plato</a></td>
+<td class="ep-desc">How can the Plato of analytic philosophy be the same man as the esoteric Plato?</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/peter-adamson-on-plato-and-beyond/">Peter Adamson On Plato and Beyond</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">The rise of the ineffable in late antique Platonism and the status of the giraffe in Plato's thought.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/platos-cratylus-esoteric-etymology-and-the-language-of-the-gods/">Plato's Cratylus: Esoteric Etymology and the Language of the Gods</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">The nature of linguistic meaning and secrets hidden within names.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 38</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-esoteric-aristotle/">The Esoteric Aristotle, Part I</a></td>
+<td class="ep-desc">Plato's greatest student had an esoteric afterlife to rival that of Plato himself.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 39</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-esoteric-aristotle-part-2/">The Esoteric Aristotle, Part 2</a></td>
+<td class="ep-desc">The philosophical and occult Pseudo-Aristotles of late antiquity and the middle ages.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 40</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/wheels-within-wheels-toward-western-esoteric-cosmology/">Wheels Within Wheels: Toward Western Esoteric Cosmology</a></td>
+<td class="ep-desc">Bridging the gap between Mesopotamian astral science and the Hellenistic flourishing of Greek astronomy.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 41</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/fate-and-foreknowledge-toward-hellenistic-astrology/">Fate and Foreknowledge: Toward Hellenistic Astrology</a></td>
+<td class="ep-desc">The synthesis of Mesopotamian, Egyptian, and Greek sciences of the stars.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 42</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/chris-brennan-on-hellenistic-astrology/">Chris Brennan on Hellenistic Astrology</a></td>
+<td class="ep-desc">Hellenistic astrologer and historian Chris Brennan on the realities of ancient astrology.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/chris-brennan-gets-fatalistic/">Chris Brennan Gets Fatal(istic)</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">"Fix'd fate, free will, foreknowledge absolute / And found no end, in wand'ring mazes lost."</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 43</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/christopher-gill-on-stoicism/">Christopher Gill on Stoicism</a></td>
+<td class="ep-desc">The basics of Stoicism — the least "esoteric" school that had a profound influence on esotericism.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/christopher-gill-gets-stoical/">Christopher Gill Gets Stoical</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Stoic fate and the Stoicism Today project.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 44</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/esoteric-hermeneutics-in-stoicism/">Esoteric Hermeneutics in Stoicism</a></td>
+<td class="ep-desc">Stoicism's contribution to the art of esoteric reading and cosmic correspondences.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 45</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/stoic-physics-and-esoteric-metaphysics/">Stoic Physics and Esoteric Metaphysics</a></td>
+<td class="ep-desc">Three key terms from Stoic physics and their surprising afterlives in western esotericism.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/poseidonius-of-rhodes-weird-stoicism-and-cosmic-religion/">Poseidonius of Rhodes, Weird Stoicism, and 'Cosmic Religion'</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Perhaps the most influential Stoic teacher on certain later-esoteric currents of thought.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 46</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/after-pythagoras/">After Pythagoras</a></td>
+<td class="ep-desc">What happened after the final Pythagorean died? Pythagoreanism is dead, long live Pythagoreanism!</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 47</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-numbers-dont-lie-joel-kalvesmaki-on-pythagorean-number/">The Numbers Don't Lie: Joel Kalvesmaki on 'Pythagorean' Number</a></td>
+<td class="ep-desc">The origins of "gematria" and arithmology.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/joel-kalvesmaki-expands-arithmetically/">Joel Kalvesmaki Expands Arithmetically</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Further exploration of numerical, psephical, arithmological, and metaphysical themes.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 48</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/pythagoras-revived-an-anatomy-of-neopythagoreanism/">Pythagoras Revived: An Anatomy of Neopythagoreanism</a></td>
+<td class="ep-desc">People starting to call themselves Pythagoreans again, growing long beards, hailing Pythagoras as ancient magus-sage.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 49</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-long-secret-history-of-the-jews-part-ii-second-temple-judaism/">The Long Secret History of the Jews Part II: Second-Temple Judaism</a></td>
+<td class="ep-desc">Judaism starts to get seriously esoteric in the Second Temple period.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 50</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/john-j-collins-on-apocalyptic/">John J. Collins on Apocalyptic</a></td>
+<td class="ep-desc">A fascinating product of Second Temple Judaism: apocalyptic literature. All will be revealed!</td></tr>
+
+</tbody>
+</table>
+
+<!-- ════════════════════════════════════════════════════
+     PART III: HELLENISTIC & EARLY IMPERIAL (Eps 51–76)
+═════════════════════════════════════════════════════ -->
+<div class="section-title">Part III — Hellenistic &amp; Early Imperial</div>
+<table>
+<thead><tr><th>#</th><th>Title</th><th>Description</th></tr></thead>
+<tbody>
+
+<tr class="ep-row"><td class="ep-num">Ep 51</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/enoch-and-the-book-of-watchers/">Enoch and the Book of Watchers</a></td>
+<td class="ep-desc">1 Enoch: perhaps the greatest work of apocalyptic literature, with evil giants and celestial visions.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 52</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/enoch-apocalyptic-and-esoteric-abrahamic-faith/">Enoch, Apocalyptic, and Abrahamic Faith</a></td>
+<td class="ep-desc">Further exploration of 1 Enoch and the Enochic esoteric tradition.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/matthew-neujahr-on-near-eastern-roots-of-apocalyptic/">Matthew Neujahr on Near-Eastern Roots of Apocalyptic</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Parallels between Near Eastern visionary materials and Jewish apocalyptic texts.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 53</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/palaces-of-heavenly-wisdom-the-hekhalot-and-merkavah-traditions/">Palaces of Heavenly Wisdom: The Hekhalot and Merkavah Traditions</a></td>
+<td class="ep-desc">Texts describing the journey to God's throne and instructions on how to get there.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 54</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/frances-flannery-on-jewish-dreams-in-antiquity/">Frances Flannery on Jewish Dreams in Antiquity</a></td>
+<td class="ep-desc">Visionary narratives of apocalyptic and the practical side of Hekhalot traditions.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/frances-flannery-dreams-on/">Frances Flannery Dreams On</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Problems of interpreting ancient accounts of visionary dreams, with imaginal trees and the platypus.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 55</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/naomi-janowitz-on-ancient-jewish-magic/">Naomi Janowitz on Jewish Magic and 'The Jewish Magi' in Antiquity</a></td>
+<td class="ep-desc">Jews in antiquity doing rituals of all sorts, and being seen as especially skilled at "magic."</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 56</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-first-western-esotericist-philo-of-alexandria/">The First Western Esotericist: Philo of Alexandria</a></td>
+<td class="ep-desc">Introduction to the first true western esotericist.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 57</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-esoteric-philo/">The Esoteric Philo</a></td>
+<td class="ep-desc">Hidden ancient perennial traditions, divine revelation, arithmological speculations, and more.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 58</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/justin-rogers-on-philo-in-early-christianity/">Justin Rogers on Philo in Early Christianity</a></td>
+<td class="ep-desc">How Philo became a father of the Christian faith and Christian esoteric scriptural hermeneutics.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 59</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/roman-history-for-esotericists/">Introducing Rome</a></td>
+<td class="ep-desc">The Eternal City and the empire she built: musings on Rome and the idea of Rome.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 60</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/politics-and-the-esoteric-in-rome/">The Esoteric and the State in Ancient Rome, Part 1: Late Republican Esotericism</a></td>
+<td class="ep-desc">What it meant to be esoteric at Rome; upper-class Roman esotericists.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 61</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-esoteric-and-the-state-in-ancient-rome-part-2-the-state-and-the-stars/">The Esoteric and the State in Ancient Rome, Part 2: The State and the Stars</a></td>
+<td class="ep-desc">The rise of astrology through the Roman Republic into the first century of the Empire.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/storytime-reading-ciceros-dream-of-scipio/">Storytime: Reading Cicero's Dream of Scipio</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Cicero's cryptic work on astral religion, numerical cosmology, and the fate of just souls.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 62</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/john-dillon-on-middle-platonism/">John Dillon on Middle Platonism</a></td>
+<td class="ep-desc">Perhaps antiquity's single most crucial current for the development of western esotericism.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/john-dillon-platonizes-further/">John Dillon Platonizes Further</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">The contours of the Middle Platonist traditions in more detail.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 63</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/dylan-burns-on-the-underworld-of-platonism/">Dylan Burns on the 'Underworld of Platonism'</a></td>
+<td class="ep-desc">The middle Platonist "Underworld": Chaldæan Oracles, Hermetica, and Gnostic tractates.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/beyond-the-underworld-with-dylan-burns/">Beyond the 'Underworld' with Dylan Burns</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Further exploration of the contours of Platonist esotericism.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 64</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-enigma-of-early-christianity/">The Enigma of Early Christianity</a></td>
+<td class="ep-desc">Introducing Christianity. Just how did this movement get started? No one knows.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 65</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/astrology-politics-and-platonism-in-the-early-empire-the-case-of-thrasyllus/">Astrology, Politics, and Platonism in the Early Empire: The Case of Thrasyllus</a></td>
+<td class="ep-desc">Thrasyllus: astrologer, power-player in the imperial court, and editor of Plato.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 66</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/an-erudite-esotericist-introducing-plutarch-of-chaeronea/">An Erudite Esotericist: Introducing Plutarch of Chæronea</a></td>
+<td class="ep-desc">First-century man-of-letters, pioneering biographer, and transmitter of ancient esoteric Platonism.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 67</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/plutarchs-on-isis-and-osiris/">Plutarch's On Isis and Osiris</a></td>
+<td class="ep-desc">Egyptian myth meets Greek esoteric Platonism, and something new is born.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 68</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/plutarchs-myths-of-cosmic-ascent/">Plutarch's Myths of Cosmic Ascent</a></td>
+<td class="ep-desc">Three homemade myths about the fate of the soul after death.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 69</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/gil-renberg-on-dream-incubation/">Gil Renberg on Incubation</a></td>
+<td class="ep-desc">When the gods are fickle, you must go see them at home: ritualised dreaming.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 70</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/daniel-harris-mccoy-on-the-oneirocritica-of-artemidorus/">Daniel Harris-McCoy on the Oneirocritica of Artemidorus</a></td>
+<td class="ep-desc">The west's earliest surviving manual of dream-interpretation.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/daniel-harris-mccoy-lives-the-dream/">Daniel Harris-McCoy Lives the Dream</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Artemidorus' relationship to other forms of divination and the political implications of dreams.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 71</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/hypochondria-and-epiphany-the-strange-case-of-aelius-aristides/">Hypochondria and Epiphany: The Strange Case of Ælius Aristides</a></td>
+<td class="ep-desc">Hieroi Logoi: the strangest record of personal religious experience and divine epiphany from antiquity.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/sarah-iles-johnston-on-hekate/">Sarah Iles Johnston on Hekatē</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Expert discussion of Hekatē, the goddess at the centre of theurgic theory and practice in the Chaldæan Oracles.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 72</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/ineffable-initiations-and-golden-asses-apuleius-of-madauros-and-the-metamorphoses/">Ineffable Initiations and Golden Asses: Apuleius of Madauros and the Metamorphoses</a></td>
+<td class="ep-desc">Apuleius: great Latin-language Middle Platonist writer and his famous occult novel.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 73</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/im-not-sorry-the-apology-of-apuleius/">I'm Not Sorry: The Apology of Apuleius</a></td>
+<td class="ep-desc">Apuleius defends himself against charges of using magic to make a wealthy widow fall in love with him.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/storytime-the-tale-of-cupid-and-psyche/">Storytime: The Tale of Cupid and Psyche</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">The most influential esoteric allegory at the heart of Apuleius' Metamorphoses.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 74</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-chaldaean-oracles/">The Chaldæan Oracles</a></td>
+<td class="ep-desc">One of the most extraordinary and influential texts of antiquity: questions of authorship and mythic metaphysics.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 75</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-chaldaean-oracles-and-theurgy/">The Chaldæan Oracles and Theurgy</a></td>
+<td class="ep-desc">How the adept navigates the world of the Chaldæan Oracles through ritual, epiphany, talismans, and leaving the body.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 76</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/korshi-dosoo-on-the-papyri-graeci-magici-and-western-esotericism/">Korshi Dosoo on the Papyri Græcæ Magicæ and Western Esotericism</a></td>
+<td class="ep-desc">History, interpretation, and makeup of the Greek Magical Papyri, from ancient Egypt to Aleister Crowley.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/korshi-dosoo-papyrologises-magically/">Korshi Dosoo Papyrologises Magically</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Deeper into ancient magic in Egypt: how secret was this stuff?</td></tr>
+
+</tbody>
+</table>
+
+<!-- ════════════════════════════════════════════════════
+     PART IV: NUMENIUS, PLOTINUS & GNOSTICISM (Eps 77–119)
+═════════════════════════════════════════════════════ -->
+<div class="section-title">Part IV — Numenius, Plotinus &amp; Gnosticism</div>
+<table>
+<thead><tr><th>#</th><th>Title</th><th>Description</th></tr></thead>
+<tbody>
+
+<tr class="ep-row"><td class="ep-num">Ep 77</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/numenius-of-apamea/">Inter philosophos occultorum curiosior: Numenius of Apamea</a></td>
+<td class="ep-desc">The esoteric practice of one of Middle Platonism's most enigmatic figures.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 78</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/alone-with-the-alone-numenius-metaphysics/">Alone with the Alone: Numenius' Metaphysics</a></td>
+<td class="ep-desc">Stirrings of a new apophatic discourse of transcendence that will define late antique metaphysics.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 79</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/michael-williams-on-the-trouble-with-gnosticism/">Michael Williams on the Trouble with 'Gnosticism'</a></td>
+<td class="ep-desc">A tour of "Gnosticism" as a term used, misused, and the interesting texts it covers.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/michael-williams-on-early-christian-heterodoxies/">Michael Williams on Early Christian Heterodoxies</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Impossible-to-answer questions about ancient demiurgic traditions in proto-Christianity.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 80</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/warfaring-strangers-prolegomena-to-second-century-christianity/">Warfaring Strangers: Prolegomena to Second-Century Christianity</a></td>
+<td class="ep-desc">Key terms and historical development: orthodoxy, heresy, heresiologists.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 81</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/i-got-soul-and-im-super-bad-basilides-of-alexandria/">I Got Soul, And I'm Super Bad: Basilides of Alexandria</a></td>
+<td class="ep-desc">One of the first Christian philosophers, known as a great Gnostic heresiarch.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 82</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/geoffrey-smith-on-valentinus-and-valentinianism/">Geoffrey Smith on Valentinus and Valentinianism</a></td>
+<td class="ep-desc">The world-view of Valentinus and his legacy in the demiurgical Christian movement Valentinianism.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/geoffrey-smith-valentinicates-further/">Geoffrey Smith Valentinicates Further</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">What Valentinus' circle at Rome might have looked like and the esoteric in early Christianity.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 83</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/other-gospels-and-alien-gods-marcion-of-sinope/">Other Gospels and Alien Gods: Marcion of Sinope</a></td>
+<td class="ep-desc">Marcion compiled the first Christian textual canon — but it was not your grandma's Bible.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 84</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/introducing-alchemy-with-lawrence-principe/">Introducing Alchemy with Lawrence Principe</a></td>
+<td class="ep-desc">A superb introduction to the Hermetick Art from Lawrence Principe.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 85</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/matteo-martelli-on-the-pseudo-democritus/">Matteo Martelli on the Pseudo-Democritus</a></td>
+<td class="ep-desc">The first critical edition of fragments of the Pseudo-Democritus, our earliest-known work of alchemy.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 86</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/numerical-mysteries-nichomachus-of-gerasa-arithmology-and-second-century-neopythagoreanism/">Numerical Mysteries: Nicomachus of Gerasa, Arithmology, and Second-Century Neopythagoreanism</a></td>
+<td class="ep-desc">The most important source of the tradition of arithmological thought.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 87</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/claudius-ptolemy-and-the-tetrabiblos/">Claudius Ptolemy and the Tetrabiblos</a></td>
+<td class="ep-desc">Synthesiser of Hellenistic astronomy/astrology to the mediæval world: the Almagest and the Tetrabiblos.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 88</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-astrology-of-vettius-valens/">The Astrology of Vettius Valens</a></td>
+<td class="ep-desc">The most hard-core practical handbook of astrological practice surviving from antiquity.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 89</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-orthodox-gnostic-introducing-clement-of-alexandria/">The Orthodox Gnostic: Introducing Clement of Alexandria</a></td>
+<td class="ep-desc">Orthodox Christianity's favourite in-house Gnostic: philosophical, esoteric Christianity.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-writings-of-clement-of-alexandria/">The Writings of Clement of Alexandria</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Lost works, fragments, and alleged forgeries in the Clementine oeuvre.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 90</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/mystagogic-patchwork-esoteric-writing-in-clements-stromateis/">Mystagogic Patchwork: Esoteric Writing in Clement's Stromateis</a></td>
+<td class="ep-desc">Esoteric writing methodologies of Clement's Stromateis — public secrecy and evocation of mysteries.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 91</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/lifting-the-veil-esoteric-reading-in-clements-stromateis/">Lifting the Veil: Esoteric Reading in Clement's Stromateis</a></td>
+<td class="ep-desc">Esoteric wisdom-lineages constructed by Clement and how he hides his reading of them.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/storytime-exploring-book-v-of-the-stromateis/">Storytime: Exploring Book V of the Stromateis, Part I</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Perhaps the fullest surviving exposition on types of esoteric discourse from antiquity.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/storytime-exploring-book-v-of-the-stromateis-part-ii/">Storytime: Exploring Book V of the Stromateis, Part II</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Continue reading — featuring the first appearance of the actual Greek word esôterikos on the podcast!</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 92</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/henny-fiska-hagg-on-clements-apophatic-writing/">Henny Fiskå Hägg on Clement's Apophatic Writing</a></td>
+<td class="ep-desc">One of antiquity's finest exponents of writing about that-about-which-nothing-can-be-written.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 93</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/becoming-gods-divinisation-and-angelomorphic-transformation-in-clement/">Becoming Gods: Divinisation and Angelomorphic Transformation in Clement</a></td>
+<td class="ep-desc">Clement's endgame: the Gnostic encounters god face-to-face after lengthy transformative evolution.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 94</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-third-century-and-the-long-late-antiquity/">The Third Century and (the Long) Late Antiquity</a></td>
+<td class="ep-desc">The parameters of "late antiquity" and the Decline and Fall of the Roman Empire.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/an-antidote-to-esotericism-karen-ni-mheallaigh-on-lucian-of-samosata/">An Antidote to Esotericism: Karen ní Mheallaigh on Lucian of Samosata</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Antiquity's great debunker, before entering late antiquity in full earnest.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 95</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/from-word-to-silence-the-rise-of-the-apophatic-in-late-antiquity/">From Word to Silence: The Rise of the Apophatic in Late Antiquity</a></td>
+<td class="ep-desc">Certain esoteric thinkers come to doubt whether the highest reality can be expressed in words.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/speaking-the-silence-on-reading-apophatic-language/">Speaking the Silence: On Reading Apophatic Language</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Expect roughly half an hour of complete silence.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 96</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/aron-reppmann-introduces-origen-of-alexandria/">Aron Reppmann Introduces Origen of Alexandria</a></td>
+<td class="ep-desc">One of the greatest church-fathers, Platonist theologian, and revolutionary scriptural exegete.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/aron-reppmann-on-origen-castration-rejection-and-redemption/">Aron Reppmann on Origen: Castration, Rejection, and Redemption</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Origen's self-castration (yes, really), anathematisation, and reappearance as quintessential Christian esotericist.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/claire-hall-on-prophecy-in-origen/">Claire Hall on Prophecy in Origen</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Origen's theory of prophecy — featuring Dr Claire Hall and Jaffa Cakes.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 97</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-true-account-celsus-origen-and-ideological-esotericism-in-late-antiquity/">The True Account: Celsus, Origen, and Ideological Esotericism in Late Antiquity</a></td>
+<td class="ep-desc">The first-known anti-Christian polemical pamphlet — and it is esoteric.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 98</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/total-war-polemical-esotericism-in-the-contra-celsum/">Total War: Polemical Esotericism in the Contra Celsum</a></td>
+<td class="ep-desc">The use and abuse of the esoteric as a strategy of tradition-building and exclusion.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 99</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/thrice-greatest-hermes/">Thrice-Greatest Hermes</a></td>
+<td class="ep-desc">Introducing Hermes Trismegistus and the Hermetica.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 100</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/brian-copenhaver-on-the-hermetica/">Brian Copenhaver on the Hermetica</a></td>
+<td class="ep-desc">Translator of the Corpus Hermeticum on what the ancient Hermetica are all about.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 101</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/professor-christian-wildberg-on-emending-the-corpus-hermeticum/">Professor Christian Wildberg on Emending the Corpus Hermeticum</a></td>
+<td class="ep-desc">The poor state of the texts collected in the Corpus Hermeticum and plans to fix it.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/philhellenism-and-the-egyptian-other-wouter-hanegraaff-on-reading-the-hermetica/">Philhellenism and the Egyptian Other: Wouter Hanegraaff on Reading the Hermetica</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">History of scholarship of the Hermetica from Reitzenstein's Poimandres (1904) to the modern day.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 102</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/corpus-hermeticum-i-the-poimandres/">Corpus Hermeticum I, the Poimandres</a></td>
+<td class="ep-desc">An apocalyptic vision granting gnôsis of how the world was created and what we can do about it.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 103</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/wouter-hanegraaff-on-the-poimandres/">Wouter Hanegraaff on the Poimandres</a></td>
+<td class="ep-desc">The visionary encounter with the divine nous; cosmogenesis-as-love-story.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 104</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/other-hermetic-worlds-the-asclepius-and-kore-kosmou/">Other Hermetic Worlds: The Asclepius and Korê Kosmou</a></td>
+<td class="ep-desc">Hermes as ancient esoteric sage, prophet of doom, and cosmic planetary deity.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 105</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/silent-encounters-the-esoteric-in-the-ancient-hermetica/">Silent Encounters: The Esoteric in the Ancient Hermetica</a></td>
+<td class="ep-desc">The elements of the esoteric in the Hermetica, including C.H. XIII and The Ogdoad Reveals the Ennead.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 106</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/m-david-litwa-on-deification-in-the-hermetica/">M. David Litwa on Deification in the Hermetica</a></td>
+<td class="ep-desc">The important Hermetic idea and practice of becoming divine.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/litwa-expands-on-the-hermetic-reception/">Litwa Expands on the Hermetic Reception</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">The incredible reception of Hermetic literature outside of Hermetism.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 107</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/anna-van-den-kerchove-on-the-hermetic-way-in-antiquity/">Anna van den Kerchove on the Hermetic Way in Antiquity</a></td>
+<td class="ep-desc">"Reclaiming" ancient Hermetism from its long sojourn outside the realms of respectability.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/anna-van-den-kerchove-hermeticises-further/">Anna van den Kerchove Hermeticises Further</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Irresponsible questions about ancient Hermetism and the intellectual milieu of late antiquity.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 108</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/christian-bull-on-the-way-of-hermes-in-antiquity/">Christian Bull on the Way of Hermes in Antiquity</a></td>
+<td class="ep-desc">Renunciation, immortalisation, and hypercosmic ascent, with animated statues.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/storytime-reading-the-corpus-hermeticum-part-i/">Storytime: Reading the Corpus Hermeticum, Part I</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Delving into the Corpus Hermeticum seeking commonalities and elusive threads.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/storytime-reading-the-corpus-hermeticum-part-ii/">Storytime: Reading the Corpus Hermeticum, Part II</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">C.H. VI–X: god as the hyperessential good and the noetic garments of fire.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/storytime-reading-the-corpus-hermeticum-part-iii/">Storytime: Reading the Corpus Hermeticum, Part III</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Completing the Hermetic corpus, C.H. XI–XVIII, the musical cicada.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 109</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/matthew-neujahr-on-the-sibylline-oracles/">Matthew Neujahr on the Sibylline Oracles</a></td>
+<td class="ep-desc">A strange, sprawling collection of oracular hexameters through a textual and prophetic labyrinth.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 110</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-philosopher-of-our-time-introducing-plotinus/">'The Philosopher of our Time': Introducing Plotinus</a></td>
+<td class="ep-desc">The greatest philosopher of late antiquity and one of the most crucial thinkers for western esotericism.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/was-plotinus-a-platonist-lineage-identity-and-scholarship/">Was Plotinus a Platonist? Lineage, Identity, and Scholarship</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Plotinus' unusual esoteric perennialism and why, though he may have been a Platonist, he didn't think so.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/ammonius-origen-and-plotinus-exploring-an-enigma/">Ammonius, Origen, and Plotinus: Exploring an Enigma</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Two Ammoniuses and two Origens? The baffling evidence.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 111</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/we-are-the-one-plotinus-participatory-metaphysics/">We are the One: Plotinus' Participatory Metaphysics</a></td>
+<td class="ep-desc">Plotinus' universe: full of the human self, extending from mud's non-existence to the One's non-existence.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 112</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/mateusz-strozynski-on-spiritual-practices-in-plotinus/">Mateusz Stróżyński on Spiritual Practices in Plotinus</a></td>
+<td class="ep-desc">Plotinian anthropology and spiritual practices; stripping away the illusory bodily self.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-secret-life-of-the-undescended-self/">The Secret Life of the Undescended Self</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Plotinus' doctrine that some aspect of the human being never descends into the materialised kosmos.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/ascending-further-with-mateusz-strozynski/">Ascending Further with Mateusz Stróżyński</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Further up the winding ways of Plotinian philosophy as way-of-life.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 113</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/plotinus-the-magician-ritual-practice-and-power-in-platonism/">Plotinus the Magician? Ritual Practice and Power in Platonism</a></td>
+<td class="ep-desc">Plotinus on "magic" in theory and practice — featuring apotropaic chickens.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 114</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-esoteric-plotinus-part-i-philosophic-silence-and-esoteric-reading/">The Esoteric Plotinus, Part I: Philosophic Silence and Esoteric Reading</a></td>
+<td class="ep-desc">Aspects of the esoteric in Porphyry's Life of Plotinus and Plotinus' own writings.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 115</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/plotinus-on-astrology-with-marilynn-lawrence/">Plotinus on Astrology with Marilynn Lawrence</a></td>
+<td class="ep-desc">Plotinus' theoretical writings on the science of the stars.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/marilynn-lawrence-casts-the-chart/">Marilynn Lawrence Casts the Chart</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">The problem of astrologers getting it right when that shouldn't really be possible.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 116</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-esoteric-plotinus-part-ii-unsaying-the-real/">The Esoteric Plotinus, Part II: Unsaying the Real</a></td>
+<td class="ep-desc">The ineffable in Plotinus and how it calls us to the highest initiation.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-secret-life-of-the-one/">The Secret (Life) of the One</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Exploring Plotinus' One and the human self's encounter with the One.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 117</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/dylan-burns-on-sethian-gnosticism/">Dylan Burns on Sethian Gnosticism</a></td>
+<td class="ep-desc">The Platonistic Sethian tractates, cosmic catastrophe, and salvation.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/dylan-burns-ascends-to-the-pleroma/">Dylan Burns Ascends to the Plēroma</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Envisioning the audience for Sethian texts and the ritual practices adumbrated in them.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 118</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/jean-marc-narbonne-on-plotinus-in-dialogue-with-the-gnostics/">Jean-Marc Narbonne on Plotinus in Dialogue with the Gnostics</a></td>
+<td class="ep-desc">Plotinian texts and ideas that make more sense seen in dialogue with the Gnostics Plotinus disliked.</td></tr>
+
+</tbody>
+</table>
+
+<!-- ════════════════════════════════════════════════════
+     PART V: MITHRAS, PORPHYRY & IAMBLICHUS (Eps 119–153)
+═════════════════════════════════════════════════════ -->
+<div class="section-title">Part V — Mithras, Porphyry &amp; Iamblichus</div>
+<table>
+<thead><tr><th>#</th><th>Title</th><th>Description</th></tr></thead>
+<tbody>
+
+<tr class="ep-row"><td class="ep-num">Ep 119</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/mysteries-of-the-rock-born-god-the-roman-cult-of-mithras/">Mysteries of the Rock-Born God: The Roman Cult of Mithras</a></td>
+<td class="ep-desc">The enigmatic evidence for the mysteries of Mithras, with underground cave-temples.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 120</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/mithras-and-the-stars-astral-elements-in-the-cult-of-mithras/">Mithras and the Stars: Astral Elements in the Cult of Mithras</a></td>
+<td class="ep-desc">Astral imagery in Mithraic temples and extraordinary testimonies to ascent of the Mithraic soul.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 121</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/radcliffe-g-edmonds-iii-on-the-mithrasliturgie/">Radcliffe G. Edmonds III on the 'Mithrasliturgie'</a></td>
+<td class="ep-desc">PGM IV 475-824: immortalisation, divinisation, visionary cosmic ascent, and magical crocodile-surfing.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/into-the-otherworld-with-radcliffe-g-edmonds-iii/">Into the Otherworld with Radcliffe G. Edmonds III</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Otherworld journeys in ancient Greek religions and beyond.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 122</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/jason-beduhn-on-mani-and-manichaeism/">Jason BeDuhn on Mani and Manichæism</a></td>
+<td class="ep-desc">The first religion to span east and west, the elusive and crucial Manichæism, and the Apostle of Light.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/jason-beduhn-separates-the-light-from-the-darkness/">Jason BeDuhn Separates the Light from the Darkness</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Manichæism as a much more positive, even world-affirming faith than is commonly thought.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 123</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/charles-m-stang-on-the-divine-double-in-late-antiquity/">Charles M. Stang on the Divine Double in Late Antiquity</a></td>
+<td class="ep-desc">The divine twin, angelic counterpart, personal daimōn, and other forms of higher self.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/charles-m-stang-doubles-down/">Charles M. Stang Doubles Down</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Henry Corbin, the fate of the divine double in the modern period, and the necessity of keeping Christianity weird.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/ivan-miroshnikov-on-the-gospel-of-thomas-part-i/">Ivan Miroshnikov on the Gospel of Thomas, Part I</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Textual, theological, and other intricacies of interpreting the "fifth gospel." Featuring ABBA.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/ivan-miroshnikov-on-the-gospel-of-thomas-part-ii/">Ivan Miroshnikov on the Gospel of Thomas, Part II</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">The ancient readership, 'eikōn' imagery, and Middle-Platonist thought in Thomas.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 124</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/poet-philosopher-hierophant-introducing-porphyry-of-tyre/">'Poet, Philosopher, Hierophant': Introducing Porphyry of Tyre</a></td>
+<td class="ep-desc">A most prolific Platonist writer: Platonist metaphysics, exorcisms, divine possessions, and lost work on the River Styx.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 125</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/porphyrys-gods-the-metaphysics-and-physics-of-divinity/">Porphyry's Gods: The Metaphysics and Physics of Divinity</a></td>
+<td class="ep-desc">The universe of Porphyry: crawling with gods, powers, and daimones.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 126</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/dorian-greenbaum-on-porphyry-and-astrology/">Dorian Greenbaum on Porphyry and Astrology</a></td>
+<td class="ep-desc">Astrology in Porphyry, astrological world-views, and the oikodespotēs as personal daimōn.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 127</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/porphyry-and-the-barbarians-ethnicity-religious-practice-and-esoteric-interpretation/">Porphyry and the Barbarians: Ethnicity, Religious Practice, and Esoteric Interpretation</a></td>
+<td class="ep-desc">Porphyry's reception of Greek and non-Greek wisdom — and one place where it is definitely not to be found.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 128</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/nilufer-akcay-on-porphyrys-on-the-cave-of-the-nymphs/">Nilüfer Akçay on Porphyry's On the Cave of the Nymphs</a></td>
+<td class="ep-desc">The only full-length English monograph on Porphyry's masterwork of esoteric interpretation.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/storytime-a-cavern-pleasant-though-involvd-in-night-reading-porphyrys-on-the-cave-of-the-nymphs-part-i/">Storytime: Reading Porphyry's On the Cave of the Nymphs, Part I</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Beginning the greatest work of esoteric reading to survive from antiquity.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/storytime-a-cavern-pleasant-though-involvd-in-night-reading-porphyrys-on-the-cave-of-the-nymphs-part-ii/">Storytime: Reading Porphyry's On the Cave of the Nymphs, Part II</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">The eschatological function of the Milky Way and how milk and honey summon up souls.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/noetic-triads-and-lost-palimpsests-introducing-the-anonymous-commentary-on-the-parmenides/">Noetic Triads and Lost Palimpsests: Introducing the Anonymous Commentary on the Parmenides</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">The enigmatic anonymous commentary on Plato's Parmenides.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-anonymous-commentary-on-the-parmenides-porphyry-and-the-sethian-gnostics/">The Anonymous Commentary on the Parmenides, Porphyry, and the Sethian Gnostics</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Possible ramifications for the relationships between Sethian Gnosticism and Platonist philosophy.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 129</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/methodologies-for-studying-the-subtle-body/">Methodologies for Studying the Subtle Body</a></td>
+<td class="ep-desc">The "subtle body" — mysterious tertium quid between soul and physical body.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 130</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/soul-flight-noetic-bodies-and-pneumatic-vehicles-toward-a-history-of-the-platonist-subtle-body/">Soul-Flight, Noetic Bodies, and Pneumatic Vehicles</a></td>
+<td class="ep-desc">Soul-flight practices of the iatromanteis, Middle-Platonist testimony to the soul-vehicle, and subtle-body theories.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 131</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/astral-accretions-fate-and-the-resurrection-body-other-subtle-bodies-of-antiquity/">Astral Accretions, Fate, and the Resurrection-Body: Other Subtle Bodies of Antiquity</a></td>
+<td class="ep-desc">Subtle-body theories in the Hermetica, Platonists, Basilides, Origen, and other esoteric Christians.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-theory-of-the-soul-vehicle-in-late-antique-platonism-and-islamicate-medical-sciences/">The Theory of the Soul-Vehicle in Late-Antique Platonism and Islamicate Medical Sciences</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">A paper on the late-antique Platonist pneumatic soul-vehicle, delivered to an academic workshop.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 132</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/a-word-to-conjure-with-on-theurgy-in-late-antiquity-and-beyond/">A Word to Conjure With: On 'Theurgy' in Late Antiquity and Beyond</a></td>
+<td class="ep-desc">What, where, when, and how is theurgy? Featuring Technical Brutal Death Metal.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 133</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/introducing-iamblichus-of-chalcis/">Introducing Iamblichus of Chalcis</a></td>
+<td class="ep-desc">Known to later Platonists as "the Divine": levitation and miraculous apparitions included.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 134</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/esoteric-hermeneutics-divine-hierarchy-and-the-ineffable-the-philosophy-of-iamblichus/">Esoteric Hermeneutics, Divine Hierarchy, and the Ineffable: The Philosophy of Iamblichus, Part I</a></td>
+<td class="ep-desc">Iamblichus' "esoteric-literalist" approach to the Platonic corpus and the upper reaches of his complex metaphysics.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 135</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-greater-kinds-souls-and-kosmos-introducing-iamblichus-philosophy-part-ii/">The 'Greater Kinds', Souls, and Kosmos: Iamblichus' Philosophy, Part II</a></td>
+<td class="ep-desc">The kosmic reaches of Iamblichus' universe: archangels, angels, daimones, heroes, archontes.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 136</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-esoteric-iamblichus/">The Esoteric Iamblichus</a></td>
+<td class="ep-desc">Rich strata of the esoteric in the work of the sage of Chalcis.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 137</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-great-theurgy-debate-porphyrys-letter-to-anebo-iamblichus-response-and-the-questions-of-ritual/">The Great Theurgy Debate: Porphyry's Letter to Anebo and Iamblichus' Response</a></td>
+<td class="ep-desc">Antiquity's greatest philosophic manifesto for addressative ritual practice.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 138</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/john-finamore-on-iamblichean-theurgy-in-theory-and-practice/">John Finamore on Iamblichean Theurgy in Theory and Practice</a></td>
+<td class="ep-desc">The practices lying behind the descriptions in the De mysteriis.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/john-finamore-ascends-to-the-noetic-triad-while-still-in-the-body/">John Finamore Ascends to the Noetic Triad (While Still in the Body)</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Iamblichean geocentrism, mathematical (meta)physics, and calling gods to visible appearance through ritual.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 139</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/gregory-shaw-on-the-phenomenology-of-iamblichean-theurgy/">Gregory Shaw on the Phenomenology of Iamblichean Theurgy</a></td>
+<td class="ep-desc">Phenomenology and meaning of theurgy with Professor Gregory Shaw.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/gregory-shaw-briefly-divinises-the-soul/">Gregory Shaw (Briefly) Divinises the Soul</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">The perennial Late Platonist problem: why isn't there only the One?</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 140</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/brian-alt-on-sacred-materials-divine-names-and-subtle-physiology-in-iamblichean-theurgy/">Brian Alt on Sacred Materials, Divine Names, and Subtle Physiology in Iamblichean Theurgy</a></td>
+<td class="ep-desc">The nitty-gritty of the ritual acts behind the De mysteriis.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/brian-alt-on-iamblichus-late-antique-egypt-and-ritual/">Brian Alt on Iamblichus, Late-Antique Egypt, and Ritual</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Iamblichus' engagement with Egyptian culture — the fiction égyptienne is not so fictive.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/danielle-layne-on-synthemata-late-platonist-ritual-praxis-and-weird-platonism-2/">Danielle Layne on Synthemata, Late-Platonist Ritual Praxis, and Weird Platonism</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">The parameters of Weird Platonism and the erotology of the Indefinite Dyad.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 141</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/run-the-numbers-the-theology-of-arithmetic/">Run the Numbers: The Theology of Arithmetic</a></td>
+<td class="ep-desc">The Theolegoumena arithmeticæ: the most complete extant arithmological treatise from antiquity.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 142</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/politics-and-religion-in-late-antiquity-part-i-geopolitics-empire-and-rabbinic-judaism/">Politics and Religion in Late Antiquity, Part I: Geopolitics, Empire, and Rabbinic Judaism</a></td>
+<td class="ep-desc">The Roman-Sassanian geopolitical balance, the Jews in late antiquity, and Rabbinic Judaism.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 143</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/politics-and-religion-in-late-antiquity-part-ii-the-rise-of-christianity-and-the-invention-and-eclipse-of-paganism/">Politics and Religion in Late Antiquity, Part II: The Rise of Christianity and the Eclipse of 'Paganism'</a></td>
+<td class="ep-desc">How the "impossible" happened and the Empire became the Christian Empire.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 144</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/thinking-through-monotheism-henotheism-polytheism-and-dualism-in-late-antiquity/">Thinking through Monotheism, Henotheism, Polytheism, and Dualism in Late Antiquity</a></td>
+<td class="ep-desc">Important but mushy ideas for understanding late antique religion.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 145</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/gideon-bohak-on-late-antique-jewish-magic/">Gideon Bohak on Late-Antique Jewish Magic</a></td>
+<td class="ep-desc">A superb introduction to the evidence for late-antique Jewish magic.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 146</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/daniel-james-waller-on-the-jewish-incantation-bowls/">Daniel James Waller on the Jewish Incantation-Bowls</a></td>
+<td class="ep-desc">The enigmatic corpus of late-antique Jewish incantation bowls from Mesopotamia.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/daniel-waller-bowls-on/">Daniel Waller Bowls On</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Aggressive use of bowls to curse enemies, and demonic chickens.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 147</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/curses-sarah-veale-on-roman-curse-tablets/">Curses! Sarah Veale on Roman 'Curse-Tablets'</a></td>
+<td class="ep-desc">Far-western polytheist magic: the Roman curse-tablets, featuring the Great Mother goddess and Isis.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/beyond-curse-tablets-with-sarah-veale/">Beyond Curse-Tablets with Sarah Veale</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Relations between magic, religion, and philosophy in the Græco-Roman world.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 148</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/exploring-the-sefer-ha-razim/">Exploring the Sefer ha-Razim</a></td>
+<td class="ep-desc">The earliest-known Jewish magic book: angel-magic meets Hellenistic astral cosmology.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 149</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-testament-of-solomon-and-the-solomonic-tradition/">The Testament of Solomon and the Solomonic Tradition, Part I</a></td>
+<td class="ep-desc">From the building of the First Temple to the extraordinary Solomonic tradition.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 150</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-testament-of-solomon-and-the-solomonic-tradition-part-ii/">The Testament of Solomon and the Solomonic Tradition, Part II</a></td>
+<td class="ep-desc">The astral-demonic lore, angelic medicine, and the Pentagram!</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 151</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/prolegomena-to-christian-magic/">Prolegomena to Christian Magic</a></td>
+<td class="ep-desc">Church fathers deny there is such a thing as Christian magic — then lots of Christian magic appears.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 152</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/korshi-dosoo-on-early-christian-magic/">Korshi Dosoo on Early Christian Magic</a></td>
+<td class="ep-desc">The world of first-millennium Christian magic as found in papyrus records.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/into-coptic-magic-with-korshi-dosoo-2/">Into Coptic Magic with Korshi Dosoo</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Case-studies of early Christian magic, featuring a queer Christian love-spell and a Satan-Unicorn.</td></tr>
+
+</tbody>
+</table>
+
+<!-- ════════════════════════════════════════════════════
+     PART VI: LATE ANTIQUITY — CHRISTIAN, JEWISH & PAGAN (Eps 153–199)
+═════════════════════════════════════════════════════ -->
+<div class="section-title">Part VI — Late Antiquity: Christian, Jewish &amp; Pagan</div>
+<table>
+<thead><tr><th>#</th><th>Title</th><th>Description</th></tr></thead>
+<tbody>
+
+<tr class="ep-row"><td class="ep-num">Ep 153</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/paul-pasquesi-on-christian-asceticism-in-the-late-antique-syriac-world/">Paul Pasquesi on Christian Asceticism in the Late-Antique Syriac World</a></td>
+<td class="ep-desc">Early Christian asceticism in the Syriac-speaking world, from basic historical context to extreme practices.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/into-syriac-spirituality-in-theory-and-practice-with-paul-pasquesi/">Into Syriac Spirituality in Theory and Practice with Paul Pasquesi</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">The Makarian Homilies, Isaac of Nineveh, and the late-antique Syriac ascetical movement.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 154</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/charles-haberl-on-the-mandaeans/">Charles Häberl on the Mandæans</a></td>
+<td class="ep-desc">The single Gnostic religion surviving from late antiquity, now largely in global diaspora.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/into-the-light-worlds-with-charles-haberl/">Into the Light-Worlds with Charles Häberl</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">The scholar of a living Gnostic tradition, the Ṣābians, and Mandæan esotericism.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 155</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/recognising-the-real-in-the-forgery-the-pseudo-clementine-literature/">Recognising the Real in the Forgery: The Pseudo-Clementine Literature</a></td>
+<td class="ep-desc">Gnosticism, Jewish-Christianity, esotericism, and the problem of authenticity.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 156</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/matteo-martelli-introduces-zosimus-of-panopolis/">Matteo Martelli Introduces Zosimus of Panopolis</a></td>
+<td class="ep-desc">The greatest alchemist of late antiquity. All is One!</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/matteo-martelli-perfects-the-tincture/">Matteo Martelli Perfects the Tincture</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">The rhetorics of secrecy and the esoteric in Zosimus' works.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 157</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/bink-hallum-on-the-extended-zosimus/">Bink Hallum on the Extended Zosimus</a></td>
+<td class="ep-desc">Astral influences, daimones and demons, mysterious talismans, and Enochic ideas in Zosimus.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/bink-hallum-on-zosimus-arabicus-the-final-quittance/">Bink Hallum on Zosimus Arabicus: The Final Quittance</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">The tangled textual web of the Arabic Zosimus and the earliest alchemical emblem book.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 158</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/metals-temples-and-living-statues-shannon-grimes-on-zosimus-egyptian-context/">Metals, Temples, and Living Statues: Shannon Grimes on Zosimus' Egyptian Context</a></td>
+<td class="ep-desc">Historical, cultural, and economic background of Zosimus' life and practice.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/storytime-reading-zosimus-of-panopolis-on-the-letter-omega/">Storytime: Reading Zosimus of Panopolis On the Letter Omega</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">The fall of the primordial human being into the materialised Thoth-Adam.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/storytime-reading-zosimus-of-panopolis-the-final-accounting/">Storytime: Reading Zosimus of Panopolis The Final Accounting</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">The most recondite and hardcore spiritual practice in Zosimus' oeuvre.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/storytime-reading-the-visions-of-zosimus/">Storytime: Reading 'The Visions of Zosimus'</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">The earliest extant visionary alchemical allegory: hallucinatory dream-narratives.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 159</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/kocku-von-stuckrad-on-monotheist-astrologies-in-late-antiquity/">Kocku von Stuckrad on Monotheist Astrologies in (Late) Antiquity</a></td>
+<td class="ep-desc">Debunking the myth that monotheism caused astrology's decline.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 160</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/claire-hall-on-firmicus-maternus/">Claire Hall on Firmicus Maternus</a></td>
+<td class="ep-desc">A Sicilian who wrote both a manual of astrology and a rabid Christian polemic. Discuss.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 161</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/father-sergey-trostyanskiy-on-the-cappadocian-fathers-part-i/">Father Sergey Trostyanskiy on the Cappadocian Fathers, Part I</a></td>
+<td class="ep-desc">The great theologians, ascetics, and philosophers of fourth-century Christianity.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 162</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/sergey-trostyanskiy-on-the-cappadocian-fathers-part-ii/">Father Sergey Trostyanskiy on the Cappadocian Fathers, Part II</a></td>
+<td class="ep-desc">Platonist "mystical" themes, esoteric imagery of divine darkness, and the limits of human knowledge.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 163</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/theology-politics-and-radiant-darkness-michael-motia-on-gregory-of-nyssa/">Theology, Politics, and Radiant Darkness: Michæl Motia on Gregory of Nyssa</a></td>
+<td class="ep-desc">The thought of the Divine Gregory of Nyssa and the illuminated darkness of divine unknowing.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/into-the-darkness-with-michael-motia/">Into the Darkness with Michæl Motia</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Apophatic theology — and the apophatic anthropology.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 164</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/joel-kalvesmaki-on-evagrius-of-pontus-the-gnostic-trilogy-and-the-origenist-controversy/">Joel Kalvesmaki on Evagrius of Pontus, the 'Gnostic Trilogy', and the Origenist Controversy</a></td>
+<td class="ep-desc">Evagrius: ascetic, philosopher, developer of Origen's thought, and mystical writer.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 165</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/joel-kalvesmaki-on-evagrius-kephalaia-gnostika-philosophy-scripture-and-apophatic-mysticism/">Joel Kalvesmaki on Evagrius' Kephalaia Gnōstika</a></td>
+<td class="ep-desc">The philosophy and mysticism of Evagrius' masterwork of mind-bending metaphysical aphorisms.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 166</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/jeremy-swist-on-the-emperor-julian-part-i-the-political-background-and-political-project-of-the-emperor/">Jeremy Swist on the Emperor Julian, Part I</a></td>
+<td class="ep-desc">The political background and political project of Julian the Faithful.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 167</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/jeremy-swist-on-julian-part-ii-the-emperors-religio-philosophic-project/">Jeremy Swist on Julian, Part II: The Emperor's Religio-Philosophic Project</a></td>
+<td class="ep-desc">Julian's incredible synthesis of Iamblichean theology, traditional religions, and politics.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 168</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/strategies-of-the-esoteric-in-the-hellenism-of-the-emperor-julian-exclusion-and-pluralism-in-a-late-antique-polytheism/">Strategies of the Esoteric in the Hellenism of the Emperor Julian</a></td>
+<td class="ep-desc">The dynamics of Julian's esoteric religious/political formulation of Hellenism.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 169</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/frederico-fidler-on-sallustius-on-the-gods-and-the-world/">Frederico Fidler on Sallustius' On the Gods and the World</a></td>
+<td class="ep-desc">How Platonist metaphysics mirrors traditional Hellenistic religion, with esoteric myths as key.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 170</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/visibly-a-goddess-heidi-marx-on-sosipatra-of-pergamum/">'Visibly a Goddess': Heidi Marx on Sosipatra of Pergamum</a></td>
+<td class="ep-desc">A living goddess and philosophic teacher in the lineage of Iamblichus.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 171</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/and-when-rome-falls-falls-the-world-the-fall-of-rome-and-western-esotericism/">'And When Rome Falls, Falls the World': The Fall of Rome and Western Esotericism</a></td>
+<td class="ep-desc">The sacking of Rome by Alaric in 410 and its ideological imprint on western culture.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 172</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/hypatia-of-alexandria-the-life-and-death-of-a-philosopher-and-her-city/">Hypatia of Alexandria: The Life and Death of a Philosopher and her City</a></td>
+<td class="ep-desc">The life and death of the Late Platonist philosopher Hypatia, one of late antiquity's most evocative enigmas.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 173</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/noble-lies-and-philosophic-silence-hypatia-synesius-and-the-new-esotericism-in-the-fourth-century/">Noble Lies and Philosophic Silence: Hypatia, Synesius, and the New Esotericism in the Fourth Century</a></td>
+<td class="ep-desc">How does the philosopher operate under conditions of fear, loathing, violence, and persecution?</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 174</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/jay-bregman-on-synesius-of-cyrene/">Jay Bregman on Synesius of Cyrene</a></td>
+<td class="ep-desc">Platonist philosopher, student of Hypatia, and Orthodox bishop: committed Christian or pagan bishop?</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/storytime-reading-synesius-on-dreams/">Storytime: Reading Synesius On Dreams</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">One of the finest pieces of esoteric writing to survive from antiquity: a polytheist message-in-a-bottle.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 175</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/plato-latinus/">Plato Latinus</a></td>
+<td class="ep-desc">Languages, the fate of Plato and Platonism in western Europe, as the western empire falls.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 176</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/gretchen-reydams-schils-on-calcidius-and-the-timaeus/">Gretchen Reydams-Schils on Calcidius and the Timæus</a></td>
+<td class="ep-desc">Calcidius' anti-esotericist approach to Plato feeds into western Christian esotericisms.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 177</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/stephen-a-cooper-on-marius-victorinus-and-latinate-christian-platonism/">Stephen A. Cooper on Marius Victorinus and Latinate Christian Platonism</a></td>
+<td class="ep-desc">Marius Victorinus converts from Platonism to Platonism-plus-Christianity.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/stephen-cooper-on-marius-victorinus-philosophy-panpsychism-and-a-modern-religious-platonism/">Stephen Cooper on Marius Victorinus, Philosophy, Panpsychism, and a Modern Religious Platonism</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">How Victorinus' thought might provide useful tools for thinking toward a philosophically-satisfying Christianity today.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 178</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-manichaean-catholic-augustine-of-hippo/">The Manichæan Catholic: Augustine of Hippo</a></td>
+<td class="ep-desc">Augustine's relationship with Manichæism and Platonist philosophy.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 179</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/augustine-of-hippo-saint-of-the-exoteric/">Augustine of Hippo: Saint of the Exoteric</a></td>
+<td class="ep-desc">Augustine the anti-esotericist, who denies that Christianity has any esoteric dimensions — using the esoteric to do so.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/mateusz-strozynski-on-augustine-and-platonism/">Mateusz Stróżyński on Augustine and Platonism</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Augustine as model Plotinian thinker — and as something totally different.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/mateusz-strozynski-on-spiritual-practices-in-augustine/">Mateusz Stróżyński on Spiritual Practices in Augustine</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">A quiet but insistent thread of divinisation "hiding" in the text of the Confessions.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 180</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/macrobius-and-the-commentary-on-scipios-dream/">Macrobius and the Commentary on Scipio's Dream</a></td>
+<td class="ep-desc">A crucial transmitter of astrologised, arithmologically-informed Platonism to the Latin west in the middle ages.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/storytime-reading-macrobius-commentary-on-the-dream-of-scipio-part-i/">Storytime: Reading Macrobius' Commentary on the Dream of Scipio, Part I</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Fictions that hide the truth, the ineffable, and dreams as a weird kind of esoteric text.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/storytime-reading-macrobius-commentary-on-the-dream-of-scipio-part-ii/">Storytime: Reading Macrobius' Commentary on the Dream of Scipio, Part II</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Arithmology, a taxonomy of the virtues, and the descent of the soul through planetary subtle bodies.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 181</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/%e2%86%84-martiana-on-martianus-capella-and-the-marriage-of-philologia-and-mercury/">Ↄ. Martiana on Martianus Capella and the Marriage of Philology and Mercury</a></td>
+<td class="ep-desc">A geocentric kosmos where liberal arts are planetary spheres, gods are physical elements, and nothing is as it seems.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/%e2%86%84-martiana-rises-to-the-occasion/">Ↄ. Martiana Rises to the Occasion</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Further reflections on Capella, other (even crazier) late-antique Latin writers, and deconstructing late antiquity.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 182</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-great-god-pan-lives-introducing-the-athenian-academy/">The Great God Pan Lives: Introducing the Athenian Academy</a></td>
+<td class="ep-desc">The final flowering of polytheist Platonist philosophy: Plutarch of Athens and Syrianus.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 183</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/hierocles-of-alexandria-and-the-pythagorean-golden-verses/">Hierocles of Alexandria and the Pythagorean Golden Verses</a></td>
+<td class="ep-desc">An esoteric commentary on the Golden Verses of the Pythagoreans and the luminous subtle body.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/storytime-reading-hierocles-on-the-golden-verses-part-i/">Storytime: Reading Hierocles on the Golden Verses, Part I</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">The question of Christianity, the noetic tetrad, and possible avenues of the esoteric in Hierocles.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/storytime-reading-hierocles-on-the-golden-verses-part-ii/">Storytime: Reading Hierocles on the Golden Verses, Part II</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Delving into the treasure-trove that is Chapter XXVI of Hierocles' Commentary.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 184</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/dylan-burns-on-proclus-the-successor/">Dylan Burns on Proclus the Successor</a></td>
+<td class="ep-desc">The life, works, and philosophy of Proclus the Successor: "All in all, but appropriately to each."</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/dylan-burns-with-the-noetic-fire-on-proclus-and-christianity/">Dylan Burns with the Noetic Fire: On Proclus and Christianity</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Further aspects of Proclus' life and work, including his relationship to Christianity.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 185</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-esoteric-proclus-part-i-the-life-and-thought-of-an-esoteric-sage/">The Esoteric Proclus, Part I: The Life and Thought of an Esoteric Sage</a></td>
+<td class="ep-desc">Proclus' esoteric doings: inspirations, epiphanies, omens, miracles, and a summary of his (meta)physics.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/edward-butler-on-proclus-part-i-henadology/">Edward Butler on Proclus, Part I: 'Henadology'</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">The One and the Henads in Proclus: gods as the primary unities.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/edward-butler-on-proclus-part-ii-on-the-metaphysics-of-polytheism-and-monotheism/">Edward Butler on Proclus, Part II: On (the Metaphysics of) Polytheism and Monotheism</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Polytheism, monotheism, and the metaphysics underlying both options.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 186</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-esoteric-proclus-part-ii-esoteric-exegesis-and-the-occult-ontology-of-language/">The Esoteric Proclus, Part II: Esoteric Exegesis and the Occult Ontology of Language</a></td>
+<td class="ep-desc">A reality where signs are things, things are signs — featuring occult sigils.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/stephen-rego-on-the-nous-in-proclus-part-i-exegesis/">Stephen Rego on the Nous in Proclus, Part I: Exegesis</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">The traditional canon of texts about the nous and how Proclus reads it esoterically.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/stephen-rego-on-the-nous-in-proclus-part-ii-metaphysics-and-myth/">Stephen Rego on the Nous in Proclus, Part II: Metaphysics and Myth</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">The dynamic architecture of Proclus' noētos kosmos: gods and goddesses, metaphysics and myth.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 187</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/graeme-miles-on-proclus-the-commentator/">Graeme Miles on Proclus the Commentator</a></td>
+<td class="ep-desc">Proclus' commentary on many Platonic dialogues, the Chaldæan Oracles, and Homeric poems.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 188</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/danielle-layne-on-proclus-religious-life-and-thought/">Danielle Layne on Proclus' Religious Life and Thought</a></td>
+<td class="ep-desc">Platonic prayer as a way of living and the erotic quest for the Good.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/robbert-van-den-berg-on-proclus-hymns/">Robbert van den Berg on Proclus' Hymns</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Proclus' surviving hymns in their general late-antique and specific theurgic contexts.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/michael-griffin-on-the-higher-virtues-in-late-platonism/">Michæl Griffin on the Higher Virtues in Late Platonism</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Plotinus said our task is not to be good, but to be god. What did that mean to later Platonists?</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 189</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/edward-watts-on-the-age-of-justinian-and-the-closing-of-the-athenian-academy/">Edward Watts on the Age of Justinian and the Closing of the Athenian Academy</a></td>
+<td class="ep-desc">Justinian's transformative reign, the closure of the Athenian Academy, and crises within Christianity.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 190</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/kevin-van-bladel-on-the-%e1%b9%a3abians-of-%e1%b8%a5arran-and-the-fate-of-the-athenian-academy/">Kevin van Bladel on the Ṣābians of Ḥarrān and the Fate of the Athenian Academy</a></td>
+<td class="ep-desc">The fascinating town of Ḥarrān and its tradition of astral, polytheist worship.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 191</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/hagia-sophia-and-the-problem-of-esoteric-architecture/">Hagia Sophia and the Problem of 'Esoteric Architecture'</a></td>
+<td class="ep-desc">Justinian's great church and theories reading it as encoding esoteric messages.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 192</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/all-from-nothing-sara-rappe-on-damascius/">All from Nothing: Sara Rappe on Damascius</a></td>
+<td class="ep-desc">The great Damascius, final scholarch of the Athenian Academy. Things become very apophatic.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/storytime-reading-damascius-philosophic-history-part-i-text-context-and-themes/">Storytime: Reading Damascius' Philosophic History, Part I: Text, Context, and Themes</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Damascius' great, gossipy account of the late-Platonist life.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/storytime-reading-damascius-philosophic-history-part-ii-theurgy-and-philosophy-at-late-antique-athens-and-alexandria/">Storytime: Reading Damascius' Philosophic History, Part II: Theurgy and Philosophy at Athens and Alexandria</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">From the days of Hypatia down to the height of Proclus' career — featuring Isidore's theurgic bird-imitations.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/storytime-reading-damascius-philosophic-history-part-iii-the-breaking-of-the-golden-chain/">Storytime: Reading Damascius' Philosophic History, Part III: The Breaking of the Golden Chain</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">The final flowering and decline of the Golden Chain at Athens, ending in disjointed fragments.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 193</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-last-platonists-philosophic-teaching-christianity-and-polytheism-in-late-antique-alexandria/">The Last Platonists? Philosophic Teaching, Christianity, and Polytheism in Late-Antique Alexandria</a></td>
+<td class="ep-desc">Platonist philosophical teaching at Alexandria before and after Justinian's edict of 529.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 194</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/contested-esotericisms-at-the-end-of-antiquity-simplicius-philoponus-and-olympiodorus/">Contested Esotericisms at the End of Antiquity: Simplicius, Philoponus, and Olympiodorus</a></td>
+<td class="ep-desc">The final generations of philosophical teaching at Alexandria — one upstart Christian, two esoteric Platonists.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/michael-griffin-on-the-higher-virtues-in-late-platonism/">Michæl Griffin on the Higher Virtues in Late Platonism</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">What divinisation meant from Iamblichus to Olympiodorus.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/an-apollonian-man-plato-at-the-end-of-antiquity-in-the-anonymous-prolegomena/">An Apollonian Man: Plato at the End of Antiquity in the Anonymous Prolegomena</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">The Anonymous Prolegomena to the Philosophy of Plato and the henadic virgin birth of Plato himself.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 195</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/one-empire-many-names-reading-byzantium-with-anthony-kaldellis/">One Empire, Many Names: Reading "Byzantium" with Anthony Kaldellis</a></td>
+<td class="ep-desc">The fabled Greek-speaking Roman empire and its outsize role in the history of western esotericism.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/this-fortunate-city-constantinople-considered-as-talisman-part-i/">'This Fortunate City': Constantinople Considered as Talisman, Part I</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">The New Rome and her occult foundations, featuring Apollonios of Tyana and Vettius Valens.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/this-fortunate-city-constantinople-considered-as-talisman-part-ii/">'This Fortunate City': Constantinople Considered as Talisman, Part II</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Sōpater of Syria and theurgic rituals at the founding of Constantinople.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 196</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/naming-divine-nothingness-introducing-the-pseudo-dionysios/">Naming Divine Nothingness: Introducing the Pseudo-Dionysios</a></td>
+<td class="ep-desc">Into the divine darkness of a hyper-non-existent god walks the Pseudo-Dionysios.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/unsaying-the-divine-darkness-exploring-dionysian-apophasis-and-mysticism/">Unsaying the Divine Darkness: Exploring Dionysian Apophasis and Mysticism</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">The divine darkness and what can(not) be said about it.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 197</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-pseudo-dionysios-the-esoteric-and-christian-mysticism/">The Pseudo-Dionysios, the Esoteric, and (Christian) Mysticism</a></td>
+<td class="ep-desc">What is "mystical" in the Corpus Dionysiacum? What is esoteric?</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/fake-apostles-and-real-christianity-exploring-the-pseudo-in-the-pseudo-dionysios/">Fake Apostles and Real Christianity: Exploring the 'Pseudo-' in the Pseudo-Dionysios</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Ancient and modern theories as to the true identity of Dionysios the Areopagite.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 198</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/paul-pasquesi-on-the-book-of-the-holy-hierotheos/">Paul Pasquesi on the Book of the Holy Hierotheos</a></td>
+<td class="ep-desc">A crucial document of Syriac spiritual literature — Hierotheos, said to have been the teacher of Dionysius the Areopagite.</td></tr>
+
+</tbody>
+</table>
+
+<!-- ════════════════════════════════════════════════════
+     PART VII: THE RISE OF ISLAM & BEYOND (Eps 199–214)
+═════════════════════════════════════════════════════ -->
+<div class="section-title">Part VII — The Rise of Islam &amp; Beyond</div>
+<table>
+<thead><tr><th>#</th><th>Title</th><th>Description</th></tr></thead>
+<tbody>
+
+<tr class="ep-row"><td class="ep-num">Ep 199</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/introducing-islam/">Introducing Islām</a></td>
+<td class="ep-desc">Episode 200 milestone: the Believers arrive from Arabia and the world-order changes irrevocably.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 200</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/matthew-melvin-koushki-on-islam-the-west-and-western-esotericism/">Matthew Melvin-Koushki on Islam, 'the West', and Western Esotericism</a></td>
+<td class="ep-desc">Improving our historical picture by including the vast majority of the surviving dossier of western esotericism.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/westward-ho-with-matthew-melvin-koushki/">Westward Ho! with Matthew Melvin-Koushki</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Languages, the Greater West model, the wastebasket of history, and the magical war for the future.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 201</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/fred-donner-on-the-history-of-early-islam/">Fred Donner on the History of Early Islām</a></td>
+<td class="ep-desc">What little we know about the early Believers' movement, the nature of the Qur'ān, and the Arab conquests.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/fred-donner-on-the-history-of-the-history-of-early-islam/">Fred Donner on the History of the History of Early Islām</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">The academic study of Islamic origins over the last hundred years or so.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 202</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/introducing-the-quran-part-i-revelation-text-and-history/">Introducing the Qur'ān, Part I: Revelation, Text, and History</a></td>
+<td class="ep-desc">The holiest text of Islām: the traditional story of revelation and modern text-critical enterprise.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 203</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/introducing-the-quran-part-ii-ambiguity-and-esoteric-themes/">Introducing the Qur'ān, Part II: Ambiguity and Esoteric Themes</a></td>
+<td class="ep-desc">Every letter of the Qur'ān is an esoteric text.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 204</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/introducing-the-quran-part-iii-quranic-texts-vs-the-quran/">Introducing the Qur'ān Part III: Qur'ānic Texts vs. the Qur'ān</a></td>
+<td class="ep-desc">How the Qur'ān came to be "the Book" through the Uthmanic recension.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 205</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/seventh-century-history-for-students-of-western-esotericism/">Seventh-Century History for Students of Western Esotericism</a></td>
+<td class="ep-desc">Momentous events, empires falling, and new apocalyptic notions among Jews, Christians, and Muslims.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 206</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/ahab-bdaiwi-on-ali-ibn-abi-%e1%b9%adalib-his-family-and-the-origins-of-shii-islam/">Ahab Bdaiwi on 'Alī ibn Abī Ṭālib, his Family, and the Origins of Shī'ī Islam</a></td>
+<td class="ep-desc">The birth of the Party of 'Alī through the labyrinth of the earliest historical sources.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 207</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/ahab-bdaiwi-on-the-rise-of-shii-esotericism/">Ahab Bdaiwi on the Rise of Shī'ī Esotericism</a></td>
+<td class="ep-desc">It did not take long for things to get very esoteric: programmatic esoteric hermeneutics and occult sciences.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 208</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/touraj-daryaee-on-zoroastrianism-in-the-seventh-century-and-beyond/">Touraj Daryaee on Zoroastrianism in the Seventh Century and Beyond</a></td>
+<td class="ep-desc">With the Arab conquest of Sasanian Persia, Zoroastrians become part of the story of western esotericism.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 209</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/jewish-apocalypse-in-the-seventh-century-martha-himmelfarb-on-the-sefer-zerubbabel/">Jewish Apocalypse in the Seventh Century: Martha Himmelfarb on the Sefer Zerubbabel</a></td>
+<td class="ep-desc">The Sefer Zerubbabel: an apocalyptic "future history" with two messiahs and the son of Satan.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 210</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/introducing-the-apocalypse-of-the-pseudo-methodios-with-christopher-bonura/">Introducing the Apocalypse of the Pseudo-Methodios, with Christopher Bonura</a></td>
+<td class="ep-desc">A seventh-century Syriac prophetic universal history with an apocalyptic Roman emperor.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 211</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/esoteric-orthodoxy-in-east-rome-jonathan-greig-on-maximus-the-confessor/">Esoteric Orthodoxy in East Rome: Jonathan Greig on Maximus the Confessor</a></td>
+<td class="ep-desc">The quintessentially Orthodox mystic: Late-Platonist apophasis meets hard-core ascesis.</td></tr>
+
+<tr class="mem-row"><td class="ep-num mem">✦ Suppl.</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/jonathan-greig-on-the-question-of-universal-salvation-in-maximus/">Jonathan Greig on the Question of Universal Salvation in Maximus</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Does Maximus have an esoteric doctrine of universal salvation? Things remain ambiguous.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 212</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/philosophy-and-occult-sciences-at-constantinople-maria-papathanassiou-on-stephanos-of-alexandria-part-i/">Philosophy and Occult Sciences at Constantinople: Maria Papathanassiou on Stephanos of Alexandria, Part I</a></td>
+<td class="ep-desc">The last known Platonist philosopher trained at Alexandria: a Christian, an astrologer, an alchemist.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 213</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/the-horoscope-of-islam-and-the-alchemical-stone-maria-papathanassiou-on-stephanos-of-alexandria-part-ii/">The Horoscope of Islām and The Alchemical Stone: Maria Papathanassiou on Stephanos of Alexandria, Part II</a></td>
+<td class="ep-desc">The katarchic "Horoscope of Islam" and the beautiful alchemical work On the Great and Holy Art of Gold-Making.</td></tr>
+
+<tr class="ep-row"><td class="ep-num">Ep 214</td>
+<td class="ep-title"><a href="https://shwep.net/podcast/storytime-reading-eunapius-of-sardis-lives-of-philosophers-and-sophists/">Storytime: Reading Eunapius of Sardis' Lives of Philosophers and Sophists</a> <span class="mem-tag">members only</span></td>
+<td class="ep-desc">Wait — actually listed as members-only on the site. Late-antique (theurgic) Platonism through the eyes of Eunapius.</td></tr>
+
+</tbody>
+</table>
+
+<footer>
+  <p>All episode titles and descriptions © Earl Fontainelle / SHWEP. All content licensed under a<br>
+  <a href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.</p>
+  <p style="margin-top:10px;">This index was compiled from <a href="https://shwep.net/podcast/">shwep.net/podcast/</a> in March 2026.<br>
+  Members-only bonus episodes are listed as supplements (✦) accompanying the nearest numbered episode.</p>
+</footer>
+
+</div>
+</body>
+</html>
