@@ -2,7 +2,7 @@
 
 An unofficial episode index for [The Secret History of Western Esotericism Podcast](https://shwep.net/podcast/) (SHWEP), hosted by Earl Fontainelle.
 
-The guide lists all numbered episodes and members-only supplement episodes in chronological order, with titles, descriptions, and direct links to shwep.net. Episodes are organized by part/era and can be filtered by type (free vs. members-only).
+The website has full naviation capabilities already, but I wanted a way to display episodes in chronological order whereas the website only allows backward navigation. This guide lists all numbered episodes and members-only supplement episodes in chronological order, with titles, descriptions, and direct links to shwep.net. Episodes are organized by part/era and can be filtered by type (free vs. members-only). List is not updated so it cuts off at point of creation.
 
 ## Usage
 
