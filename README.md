@@ -8,6 +8,11 @@ The website has full naviation capabilities already, but I wanted a way to displ
 
 Open `SHWEP_Episode_Guide.html` in any browser. No server or dependencies required.
 
+## Credits
+
+- **Creative Director:** Joshua ([@Fourier18](https://github.com/Fourier18)) — concept, episode curation, structural decisions (chronological ordering, free vs. members-only filtering)
+- **Developer:** Claude (Anthropic) — HTML/CSS/JS implementation of the episode guide page
+
 ## License & Attribution
 
 Episode titles and descriptions © Earl Fontainelle / SHWEP, licensed under a [Creative Commons Attribution-NonCommercial 4.0 International License](https://creativecommons.org/licenses/by-nc/4.0/).
