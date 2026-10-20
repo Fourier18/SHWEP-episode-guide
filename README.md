@@ -2,7 +2,7 @@
 
 ## 📖 View the Episode Guide
 
-**[Open the Episode Guide](SHWEP_Episode_Guide_v3.24.2.html)** — a browsable index of all SHWEP episodes in chronological order, with titles, descriptions, and links to the podcast. No server required; opens in any browser.
+Visit the **[Episode Guide](https://fourier18.github.io/SHWEP-episode-guide/)** — a browsable index of all SHWEP episodes in chronological order, with titles, descriptions, and links to the podcast.
 
 ---
 
