@@ -1,12 +1,16 @@
 # SHWEP — Complete Episode Guide
 
-An unofficial episode index for [The Secret History of Western Esotericism Podcast](https://shwep.net/podcast/) (SHWEP), hosted by Earl Fontainelle.
+## 📖 View the Episode Guide
 
-The website has full naviation capabilities already, but I wanted a way to display episodes in chronological order whereas the website only allows backward navigation. This guide lists all numbered episodes and members-only supplement episodes in chronological order, with titles, descriptions, and direct links to shwep.net. Episodes are organized by part/era and can be filtered by type (free vs. members-only). List is not updated so it cuts off at point of creation.
+**[Open the Episode Guide](SHWEP_Episode_Guide_v3.24.2.html)** — a browsable index of all SHWEP episodes in chronological order, with titles, descriptions, and links to the podcast. No server required; opens in any browser.
 
-## Usage
+---
 
-Open `SHWEP_Episode_Guide.html` in any browser. No server or dependencies required.
+## About This Index
+
+This is an unofficial episode index compiled from [The Secret History of Western Esotericism Podcast](https://shwep.net/podcast/) (SHWEP), hosted by Earl Fontainelle.
+
+The podcast website allows backward navigation only. This guide reorders all numbered episodes and members-only supplements chronologically, organizes them by part/era, and lets you filter between free and members-only content for easier exploration.
 
 ## Credits
 
@@ -17,6 +21,6 @@ Open `SHWEP_Episode_Guide.html` in any browser. No server or dependencies requir
 
 Episode titles and descriptions © Earl Fontainelle / SHWEP, licensed under a [Creative Commons Attribution-NonCommercial 4.0 International License](https://creativecommons.org/licenses/by-nc/4.0/).
 
-This index is a derived work compiled from [shwep.net/podcast/](https://shwep.net/podcast/). Episode titles and descriptions are reproduced unchanged under the terms of the CC BY-NC 4.0 license. The HTML layout, formatting, and structure are original to this project and are offered under the same license.
+This index is a derived work compiled from [**The Secret History of Western Esotericism Podcast**](https://shwep.net/podcast/). Episode titles and descriptions are reproduced unchanged under the terms of the CC BY-NC 4.0 license. The HTML layout, formatting, and structure are original to this project and are offered under the same license.
 
 This project is not affiliated with or endorsed by SHWEP or Earl Fontainelle.
